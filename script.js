@@ -1,8 +1,9 @@
 // ================================================
 // CONFIGURAÇÃO — COLE AQUI A URL DO APPS SCRIPT
 // ================================================
+// ATENÇÃO: Se você gerou um link novo lá no Apps Script, lembre-se de trocar aqui!
 const SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbyHFSqoRKxg3WtAQLPQkMwzX9xu7Nxoh9_5FGxurUGZn1OLsprgyhYxUKLDNUcInKCZcA/exec";
+  "https://script.google.com/macros/s/AKfycbxI4uqHTQqqpj1ySfDh57PUyGlpWwi5m-M-euZIqShOMC1NZzbhqY0PjPQkrNSNOksTxg/exec";
 
 // Intersection Observer para animações de entrada
 const observer = new IntersectionObserver(
@@ -69,22 +70,22 @@ document
     btn.textContent = "Enviando...";
     btn.disabled = true;
 
-    const dados = {
-      timestamp: new Date().toLocaleString("pt-BR"),
-      nome: document.getElementById("nome").value.trim(),
-      especialidade: document.getElementById("especialidade").value,
-      whatsapp: document.getElementById("whatsapp").value.trim(),
-      cidade: document.getElementById("cidade").value.trim(),
-      valor: document.getElementById("valor").value.trim(),
-      modalidade: document.getElementById("modalidade").value,
-    };
+    const dados = new URLSearchParams();
+    dados.append("nome", document.getElementById("nome").value.trim());
+    dados.append(
+      "especialidade",
+      document.getElementById("especialidade").value,
+    );
+    dados.append("whatsapp", document.getElementById("whatsapp").value.trim());
+    dados.append("cidade", document.getElementById("cidade").value.trim());
+    dados.append("valor", document.getElementById("valor").value.trim());
+    dados.append("modalidade", document.getElementById("modalidade").value);
 
     try {
       await fetch(SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(dados),
+        body: dados,
       });
       mostrarSucesso();
     } catch (err) {
