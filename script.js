@@ -1,7 +1,8 @@
 // ================================================
 // CONFIGURAÇÃO — COLE AQUI A URL DO APPS SCRIPT
 // ================================================
-const SCRIPT_URL = "COLE_AQUI_A_URL_DO_SEU_APPS_SCRIPT";
+const SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbyHFSqoRKxg3WtAQLPQkMwzX9xu7Nxoh9_5FGxurUGZn1OLsprgyhYxUKLDNUcInKCZcA/exec";
 
 // Intersection Observer para animações de entrada
 const observer = new IntersectionObserver(
@@ -10,7 +11,7 @@ const observer = new IntersectionObserver(
       if (el.isIntersecting) el.target.classList.add("visible");
     });
   },
-  { threshold: 0.1 }
+  { threshold: 0.1 },
 );
 
 document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
@@ -36,7 +37,13 @@ document
   .addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const campos = ["nome", "especialidade", "whatsapp", "cidade", "modalidade"];
+    const campos = [
+      "nome",
+      "especialidade",
+      "whatsapp",
+      "cidade",
+      "modalidade",
+    ];
     let valido = true;
 
     campos.forEach((id) => {
@@ -51,7 +58,7 @@ document
 
     if (!valido) {
       const primeiro = campos.find(
-        (id) => !document.getElementById(id).value.trim()
+        (id) => !document.getElementById(id).value.trim(),
       );
       document.getElementById(primeiro).focus();
       return;
